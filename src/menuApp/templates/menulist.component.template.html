@@ -1,6 +1,10 @@
 <table class="categoryList" style="width:55%;">
-    <tr ng-repeat="item in $ctrl.items">
-      <th width="1%">{{ item.short_name }}</th>
-      <th width="54%" ui-sref="itemDetail({itemId: $index})">{{ item.short_name }} {{ item.name }}</th>
-    </tr>
-  </table>
+  <tr>
+    <th class="headerColumn"> Code </th>
+    <th class="headerColumn"> Menu Category </th>
+  </tr>
+  <tr ng-repeat="itemobj in $ctrl.items">
+    <th width="1%">{{ itemobj.short_name }}</th>
+    <th width="54%" ui-sref="itemDetail({category: itemobj.short_name})"> {{ itemobj.name }}</th>
+  </tr>
+</table>

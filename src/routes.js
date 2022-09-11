@@ -28,14 +28,14 @@ function RoutesConfig($stateProvider, $urlRouterProvider) {
   })
 
   .state('itemDetail', {
-    url: '/items/{itemId}',
+    url: '/items/{category}',
     templateUrl: 'src/menuApp/templates/item-detail.template.html',
     controller: 'ItemDetailController as itemDetail',
-    resolve: {
-      item: ['MenuDataService', function (MenuDataService) {
-        return MenuDataService.getItemsForCategory();
-      }]
-    }
+     resolve: {
+         item: ['$stateParams', 'MenuDataService', function($stateParams, MenuDataService) {
+             return MenuDataService.getItemsForCategory($stateParams.category);
+         }]
+     }
   });
 }
 

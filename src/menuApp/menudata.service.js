@@ -20,7 +20,6 @@ function MenuDataService($q, $timeout,$http,ApiBasePath) {
         });
         response.then(function(response){
           items = response.data;
-          console.log(items);
         });
 
         $timeout(function () {
@@ -31,22 +30,20 @@ function MenuDataService($q, $timeout,$http,ApiBasePath) {
     };
 
   service.getItemsForCategory = function (categoryShortName) {
-    	var response = $http({
+      var deferred = $q.defer();
+      var response = $http({
           method: "GET",
-          url: (ApiBasePath + "/menu_items.json"),
-          params: {
-            category: categoryShortName
-          }
-        });
-        response.then(function(response){
-          item = response.data.menu_items;
-        });
-        var deferred = $q.defer();
-        $timeout(function () {
-          deferred.resolve(item);
-        }, 1000);
+          url: (ApiBasePath + "/menu_items.json?category=" + categoryShortName)
+      });
+      response.then(function(response){
+        item = response.data.menu_items;
+      });
 
-        return deferred.promise;
+      $timeout(function () {
+        deferred.resolve(item);
+      }, 1000);
+
+      return deferred.promise;
     };
 }
 
